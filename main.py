@@ -1,6 +1,5 @@
 def wordcount(text):
     words = text.split()
-    #print("Placeholder world count result")
     return len(words)
     
 '''
@@ -26,16 +25,23 @@ def alphabetize(text):
                 alpha_list[letter] = 1   
         else:
             pass
-    return alpha_list    
+    return alpha_list
+
+
 
 def main():
     with open("books/frankenstein.txt") as f:
         file_contents = f.read()
         total_words = wordcount(file_contents)
-        #total_letters = lettercount(file_contents)
-        total_letters = alphabetize(file_contents)
+
+        sorted_list = alphabetize(file_contents)
+        list_of_dicts = [{'letter': letter, 'count': count} for letter, count in sorted_list.items()]
+        list_of_dicts.sort(key=lambda item: item['count'], reverse=True)
+   
         print(f"--- Begin report of books/frankenstein.txt ---")
         print(f"{total_words} words found in the document\n")
-        print(total_letters)
+        #loop iterating over list, printing each letter and it's count
+        for item in list_of_dicts:
+            print(f"The '{item['letter']}' character was found {item['count']} times")
         print("--- End report ---")
 main()
